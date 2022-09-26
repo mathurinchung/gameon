@@ -3,17 +3,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Reservation</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" /> 
+    <title>Reservation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet" />
     <link rel="stylesheet" href="css/index.css" />
   </head>
 
   <body>
-    <div id="myTopnav" class="topnav">
+    <nav id="myTopnav" class="topnav">
       <div class="header-logo">
-        <img alt="logo" src="images/logo.png" width="auto" height="auto" />
+        <img alt="logo" src="images/logo.png" />
       </div>
 
       <div class="main-navbar">
@@ -22,11 +22,12 @@
         <a href="#"><span>À propos</span></a>
         <a href="#"><span>Contact</span></a>
         <a href="#"><span>Évènements passés</span></a>
-        <a href="javascript:void(0);" class="icon" onclick="editNav()">
+        <!-- <a href="javascript:void(0);" class="icon" onclick="editNav()"> -->
+        <a href="javascript:void(0);" class="icon">
           <i class="fa fa-bars"></i>
         </a>
       </div>
-    </div>
+    </nav>
 
     <main>
       <div class="hero-section">
@@ -51,37 +52,39 @@
 
       <div class="bground">
         <div class="content">
-          <span class="close"></span>
+          <span class="close modal-close"></span>
 
           <div class="modal-body">
-            <form name="reserve" action="index.html" method="#" onsubmit="return validate();">
+            <!-- <form name="reserve" action="index.html" method="#" onsubmit="return validate();"> -->
+            <form name="reserve" action="index.html" method="get">
               <div class="formData">
                 <label>Prénom</label>
                 <input id="first" class="text-control" type="text" name="first" minlength="2" />
-                <p id="firstNameErrorMsg"></p>
+                <p><small id="firstErrMsg"></small></p>
               </div>
 
               <div class="formData">
                 <label>Nom</label>
                 <input id="last" class="text-control" type="text" name="last" />
-                <p id="lastNameErrorMsg"></p>
+                <p><small id="lastErrMsg"></small></p>
               </div>
 
               <div class="formData">
                 <label>E-mail</label>
                 <input id="email" class="text-control" type="email" name="email" />
-                <p id="emailErrorMsg"></p>
+                <p><small id="emailErrMsg"></small></p>
               </div>
 
               <div class="formData">
                 <label>Date de naissance</label>
                 <input id="birthdate" class="text-control" type="date" name="birthdate" />
-                <p id="birthdateErrorMsg"></p>
+                <p><small id="birthErrMsg"></small></p>
               </div>
 
               <div class="formData">
                 <label>À combien de tournois GameOn avez-vous déjà participé ?</label>
-                <input id="quantity" class="text-control" type="number" name="quantity" min="0" max="99">
+                <input id="quantity" class="text-control" type="number" name="quantity" min="0" max="99" />
+                <p><small id="qtyErrMsg"></small></p>
               </div>
 
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
@@ -122,13 +125,12 @@
                   Portland
                 </label>
 
-                <p id="locationErrorMsg"></p>
+                <p><small id="optionErrMsg"></small></p>
               </div>
 
-              <div
-                class="formData">
+              <div class="formData">
                 <input id="checkbox1" class="checkbox-input" type="checkbox" checked />
-                <label class="checkbox2-label" for="checkbox1" required>
+                <label class="checkbox2-label" for="checkbox1">
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
@@ -136,12 +138,24 @@
                 <input id="checkbox2" class="checkbox-input" type="checkbox" />
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
-                  Je Je souhaite être prévenu des prochains évènements.
+                  Je souhaite être prévenu des prochains évènements.
                 </label>
+
+                <p><small id="termsErrMsg"></small></p>
               </div>
 
               <input class="button btn-submit" type="submit" value="C'est parti" />
             </form>
+
+            <!-- Rajout de ce block -->
+            <div style="display: none" class="modal-thanks">
+              <p style="text-align: center; padding: 300px 0">
+                Merci pour<br>
+                votre inscription
+              </p>
+          
+              <button class="button btn-close modal-close">Fermer</button>
+            </div>
           </div>
         </div>
       </div>
@@ -151,6 +165,6 @@
       <p class="copyrights">Copyright 2014 - 2022, GameOn Inc.</p>
     </footer>
 
-    <script src="js/index.js"></script>
+    <script type="module" src="js/index.js"></script>
   </body>
 </html>
