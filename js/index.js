@@ -42,20 +42,6 @@ function validate(e) {
 
   modalForm.style.display = "none";
   modalThanks.style.display = "block"
-
-  // modalBody.innerHTML = `
-  // <div class="thanks">
-  //   <p style="text-align: center; padding: 300px 0">
-  //     Merci pour<br>
-  //     votre inscription
-  //   </p>
-
-  //   <button class="button btn-close modal-close">Fermer</button>
-  // </div>
-  // `;
-
-  // const modalClose = document.querySelectorAll(".modal-close");
-  // modalClose.forEach(btn => btn.addEventListener("click", () => close(modalbg)));
 }
 
 
