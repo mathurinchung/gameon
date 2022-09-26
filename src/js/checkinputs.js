@@ -7,7 +7,7 @@ class CheckInputs {
     if (this.tournQty()) return true;
     if (this.tournOption()) return true;
     if (this.terms()) return true;
-    else return false; // mettre false à la fin du test
+    else return false;
   }
 
   checkName(id, idErrMsg, name) {
@@ -29,7 +29,6 @@ class CheckInputs {
     errmsg.textContent = "";
   }
 
-  // ...
   firstname() {
     return this.checkName("#first", "#firstErrMsg", "prénom");
   }
