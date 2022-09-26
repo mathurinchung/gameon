@@ -7,7 +7,7 @@ class CheckInputs {
     if (this.tournQty()) return true;
     if (this.tournOption()) return true;
     if (this.terms()) return true;
-    else return true; // mettre false à la fin du test
+    else return false; // mettre false à la fin du test
   }
 
   checkName(id, idErrMsg, name) {
@@ -84,10 +84,10 @@ class CheckInputs {
   }
 
   tournOption() {
-    const location = document.querySelectorAll("input[type='radio']");
+    const location = document.querySelectorAll("input[name='location']:checked");
     const errmsg = document.querySelector("#optionErrMsg");
 
-    if (!location.checked) {
+    if (location.length === 0) {
       errmsg.textContent = "Vous devez choisir une option";
       return true;
     }
