@@ -1,4 +1,4 @@
-/* :root {
+:root {
   --font-default: "DM Sans", Arial, Helvetica, sans-serif;
   --font-slab: var(--font-default);
   --modal-duration: 0.8s;
@@ -7,10 +7,10 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-} */
+}
 /* Landing Page */
 
-/* body {
+body {
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -28,9 +28,9 @@ p {
 
 img {
   padding-right: 1rem;
-} */
+}
 
-/* .topnav {
+.topnav {
   overflow: hidden;
   margin: 3.5%;
 }
@@ -92,14 +92,14 @@ img {
 
 
 
- @media screen and (max-width: 540px) {
+@media screen and (max-width: 540px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
     margin-top: -15px;
   }
-}  */
+}
 
 main {
   font-size: 130%;
@@ -111,8 +111,6 @@ main {
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
-
-
 }
 
 .modal-btn {
@@ -517,7 +515,7 @@ footer {
   }
 }
 
-/* @keyframes modalopen {
+@keyframes modalopen {
   from {
     opacity: 0;
     transform: translateY(-150px);
@@ -525,4 +523,4 @@ footer {
   to {
     opacity: 1;
   }
-} */
+}
