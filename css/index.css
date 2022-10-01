@@ -5,8 +5,6 @@
 
 
 :root {
-  --font-default:  'DM Sans', Arial, Helvetica, sans-serif;
-
   --primary-color: #FE142F;
   --secondary-color: #279E7A;
 
@@ -23,7 +21,7 @@
 
 
 body {
-  font-family: var(--font-default);
+  font-family: 'DM Sans', Arial, Helvetica, sans-serif;
 }
 
 ul {
