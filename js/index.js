@@ -1,40 +1,37 @@
-import { launch, close } from "./modal.js";
-import { check } from "./checkinputs.js";
+import Modal from "./modal.js"; // modal class
+import CheckInputs from "./checkinputs.js"; // check class
 
 // DOM Elements
-const navBtn = document.querySelector(".main-navbar .icon")
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const modalClose = document.querySelectorAll(".modal-close");
+const navBtn = document.querySelector(".header-nav .menu-icon");
+const modalElement = document.querySelector(".modal-bg");
+const modalOpen = document.querySelector(".open");
+const modalClose = document.querySelectorAll(".close");
 const modalForm = document.querySelector("form");
-// const formData = document.querySelectorAll(".formData");
-const modalThanks = document.querySelector(".modal-thanks");
+const modalThanks = document.querySelector(".thanks");
+const formData = [ ...document.querySelectorAll(".formData") ];
+const inputs = document.querySelectorAll("input");
 
-//
+// Classes
+const modal = new Modal(modalElement);
+const check = new CheckInputs(formData);
+
+// Events
 navBtn.addEventListener("click", editNav);
+modalOpen.addEventListener("click", () => modal.launch()); // launch modal event
+modalClose.forEach(btn => btn.addEventListener("click", () => modal.close())); // close modal event
+modalForm.addEventListener("submit", validate); // validate form event
 
-// launch modal event
-modalBtn.forEach(btn => btn.addEventListener("click", () => launch(modalbg)));
-
-// close modal event
-modalClose.forEach(btn => btn.addEventListener("click", () => close(modalbg)));
-
-//
-modalForm.addEventListener("submit", validate);
-
-
-// 
+// Functions
 function editNav() {
-  const x = document.getElementById("myTopnav");
+  const x = document.getElementById("topnav");
 
-  if (x.className === "topnav") {
+  if (x.className === "header-nav") {
     x.className += " responsive";
   } else {
-    x.className = "topnav";
+    x.className = "header-nav";
   }
 }
 
-//
 function validate(e) {
   e.preventDefault();
 
@@ -42,6 +39,7 @@ function validate(e) {
 
   modalForm.style.display = "none";
   modalThanks.style.display = "block"
+
+  inputs.forEach(input => input.value = "");
+  document.querySelector("input[name='location']").checked = false
 }
-
-

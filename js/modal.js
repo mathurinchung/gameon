@@ -1,13 +1,15 @@
-class Modal {
+export default class Modal {
+  constructor (modal) {
+    this.modal = modal;
+  }
+
   //launch modal form
-  launch(modal) {
-    modal.style.display = "block";
+  launch() {
+    this.modal.style.display = "block";
   }
 
   // close modal form
-  close(modal) {
-    modal.style.display = "none";
+  close() {
+    this.modal.style.display = "none";
   }
 }
-
-export const { launch, close } = new Modal();
