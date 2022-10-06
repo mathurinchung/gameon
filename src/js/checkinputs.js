@@ -3,6 +3,7 @@ export default class CheckInputs {
     this.formData = formData;
   }
 
+
   isInvalid() {
     if (this.firstname() || this.lastname() || this.email() || this.birthdate() || this.quantity() || this.location() || this.terms()) return true;
     else return false;
@@ -40,7 +41,6 @@ export default class CheckInputs {
   checkName(formdata) {
     const name = formdata.querySelector("input").value;
     const regex = /^[A-Za-z- ]+$/;
-
 
     if (name === "") throw new Error("Veuillez remplir ce champ");
     else if (regex.test(name) === false) throw new Error(`Veuillez saisir un nom valide`);
@@ -89,9 +89,6 @@ export default class CheckInputs {
     return this.formData.find(el => el.querySelector(id));
   }
 
-  errorHandler(errMsg) {
-    throw new Error(errMsg);
-  }
 
   checkInput(id, fn) {
     const formdata = this.getFormData(id);
