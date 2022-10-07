@@ -373,7 +373,7 @@ input {
   margin-bottom: 17.07px;
 }
 
-.formData.checkbox {
+.formData.location {
   margin-bottom: 11.65px;
 }
 
@@ -475,7 +475,7 @@ input {
     margin-bottom: 2.416vw;
   }
 
-  .formData.checkbox {
+  .formData.location {
     margin-bottom: 1.69vw;
   }
 

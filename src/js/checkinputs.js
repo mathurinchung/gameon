@@ -1,43 +1,53 @@
-export default class CheckInputs {
+/**
+ * Class that handles the formdata
+ */
+class FormData {
+  /**
+   * Representing an array of the form's elements
+   * @param {[HTMLElement]} formData - The array of the form's elements
+   */
   constructor (formData) {
     this.formData = formData;
   }
 
+  /**
+   * Get FormData's element
+   * @param {String} id - selector to match
+   * @returns the formData within the document that matches the specified selector
+   */
+  getFormData = id => this.formData.find(el => el.querySelector(id));
 
-  isInvalid() {
-    if (this.firstname() || this.lastname() || this.email() || this.birthdate() || this.quantity() || this.location() || this.terms()) return true;
-    else return false;
+  /**
+   * Checks input
+   * @param {String} id - selector to match formdata element
+   * @param {Function} fn - The function that checks the input
+   * @returns Boolean
+   */
+  checkInput(id, fn) {
+    const formdata = this.getFormData(id);
+
+    try {
+      fn(formdata);
+
+      formdata.removeAttribute("data-error");
+      return false;
+    } catch (error) {
+      formdata.setAttribute("data-error", error.message);
+      return true;
+    }
   }
-
-  firstname() {
-    return this.checkInput("#first", this.checkName);
-  }
-
-  lastname() {
-    return this.checkInput("#last", this.checkName);
-  }
-
-  email() {
-    return this.checkInput("#email", this.checkEmail);
-  }
-
-  birthdate() {
-    return this.checkInput("#birthdate", this.checkBirthdate);
-  }
-
-  quantity() {
-    return this.checkInput("#quantity", this.checkQty);
-  }
-
-  location() {
-    return this.checkInput("input[name='location']", this.checkOption);
-  }
-
-  terms() {
-    return this.checkInput("#checkbox2", this.checkTerms);
-  }
+}
 
 
+/**
+ * Class that checks the value of inputs
+ * @extends FormData
+ */
+class CheckInputs extends FormData {
+  /**
+   * Checks the value of the input name
+   * @param {String} formdata
+   */
   checkName(formdata) {
     const name = formdata.querySelector("input").value;
     const regex = /^[A-Za-z- ]+$/;
@@ -47,6 +57,10 @@ export default class CheckInputs {
     else if (name.length < 2) throw new Error(`Veuillez saisir 2 caractères ou plus pour le champ du nom`);
   }
 
+  /**
+   * Checks the value of the input email
+   * @param {String} formdata 
+   */
   checkEmail(formdata) {
     const email = formdata.querySelector("input").value;
     const regex = /[a-z0-9.-_]+@[a-z0-9]+\.[a-z]{2,3}/;
@@ -55,6 +69,10 @@ export default class CheckInputs {
     else if (regex.test(email) === false) throw new Error("Veuillez entrer un email valide");
   }
 
+  /**
+   * Checks the value of the input birthdate
+   * @param {String} formdata 
+   */
   checkBirthdate(formdata) {
     const birthday = formdata.querySelector("input").value;
     const dob = new Date(birthday);
@@ -66,40 +84,89 @@ export default class CheckInputs {
     else if (age < 16) throw new Error("Vous devez avoir au moins 16 ans");
   }
 
+  /**
+   * Checks the value of the input quantity
+   * @param {String} formdata 
+   */
   checkQty(formdata) {
     let quantity = formdata.querySelector("input").value;
 
-    if (quantity === "" || quantity < 0) throw new Error("Vous devez saisir un nombre entre 0 et 99");
+    if (quantity === "" || quantity < 0 || quantity > 99) throw new Error("Vous devez saisir un nombre entre 0 et 99");
   }
 
+  /**
+   * Checks input option checked
+   * @param {String} formdata 
+   */
   checkOption(formdata) {
     const location = formdata.querySelectorAll("input[name='location']:checked");
 
     if (location.length === 0) throw new Error("Vous devez choisir une option");
   }
 
+  /**
+   * Checks input terms checked
+   * @param {String} formdata 
+   */
   checkTerms(formdata) {
-    const terms = formdata.querySelector("#checkbox1");
+    const terms = formdata.querySelector("input").checked;
 
-    if (!terms.checked) throw new Error("Vous devez vérifier que vous acceptez les termes et conditions");
+    if (!terms) throw new Error("Vous devez vérifier que vous acceptez les termes et conditions");
   }
+}
 
 
-  getFormData(id) {
-    return this.formData.find(el => el.querySelector(id));
-  }
+/**
+ * Class that checks for invalid inputs
+ * @extends CheckInputs
+ */
+export default class CheckIsInvalid extends CheckInputs {
+  /**
+   * Checks firstname is invalid
+   * @param {String} id - selector to match firstname
+   * @returns Boolean
+   */
+  firstname = id => this.checkInput(id, this.checkName);
 
+  /**
+   * Checks lastname is invalid
+   * @param {String} id - selector to match lastname
+   * @returns Boolean
+   */
+  lastname = id => this.checkInput(id, this.checkName);
 
-  checkInput(id, fn) {
-    const formdata = this.getFormData(id);
+  /**
+   * Checks email is invalid
+   * @param {String} id - selector to match email
+   * @returns Boolean
+   */
+  email = id => this.checkInput(id, this.checkEmail);
 
-    try {
-      fn(formdata);
+  /**
+   * Checks birthdate is invalid
+   * @param {String} id - selector to match birthdate
+   * @returns Boolean
+   */
+  birthdate = id => this.checkInput(id, this.checkBirthdate);
 
-      formdata.removeAttribute("data-error");
-    } catch (error) {
-      formdata.setAttribute("data-error", error.message);
-      return true;
-    }
-  }
+  /**
+   * Checks quantity is invalid
+   * @param {String} id - selector to match quantity
+   * @returns Boolean
+   */
+  quantity = id => this.checkInput(id, this.checkQty);
+
+  /**
+   * Checks location is invalid
+   * @param {String} id - selector to match location
+   * @returns Boolean
+   */
+  location = id => this.checkInput(id, this.checkOption);
+
+  /**
+   * Checks terms is invalid
+   * @param {String} id - selector to match terms
+   * @returns Boolean
+   */
+  terms = id => this.checkInput(id, this.checkTerms);
 }
