@@ -1,5 +1,6 @@
 import Modal from "./modal.js"; // modal class
-import CheckInputs from "./checkinputs.js"; // check class
+import CheckIsInvalid from "./checkinputs.js"; // check class
+
 
 // DOM Elements
 const navBtn = document.querySelector(".header-nav .menu-icon");
@@ -11,17 +12,23 @@ const modalThanks = document.querySelector(".thanks");
 const formData = [ ...document.querySelectorAll(".formData") ];
 const inputs = document.querySelectorAll("input");
 
+
 // Classes
 const modal = new Modal(modalElement);
-const check = new CheckInputs(formData);
+const check = new CheckIsInvalid(formData);
+
 
 // Events
-navBtn.addEventListener("click", editNav);
+navBtn.addEventListener("click", editNav); // open reponsive nav
 modalOpen.addEventListener("click", () => modal.launch()); // launch modal event
 modalClose.forEach(btn => btn.addEventListener("click", () => modal.close())); // close modal event
 modalForm.addEventListener("submit", validate); // validate form event
 
+
 // Functions
+/**
+ * Edit responsive nav
+ */
 function editNav() {
   const x = document.getElementById("topnav");
 
@@ -32,14 +39,29 @@ function editNav() {
   }
 }
 
+/**
+ * Check invalid inputs
+ * @returns Boolean
+ */
+function isInvalid() {
+  return (check.firstname("#first") || check.lastname("#last") || check.email("#email") || check.birthdate("#birthdate") || check.quantity("#quantity") || check.location("input[name='location']") || check.terms("#checkbox1")) ? true : false;
+}
+
+/**
+ * Validate the form
+ * @param {Event} e
+ * @returns 
+ */
 function validate(e) {
   e.preventDefault();
 
-  if (check.isInvalid()) return true;
+  if (isInvalid()) return;
 
+  // Thanks after validate
   modalForm.style.display = "none";
   modalThanks.style.display = "block"
 
+  // Clear inputs after validate
   inputs.forEach(input => input.value = "");
   document.querySelector("input[name='location']").checked = false
 }
