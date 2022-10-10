@@ -89,7 +89,7 @@ class CheckInputs extends FormData {
    * @param {String} formdata 
    */
   checkQty(formdata) {
-    let quantity = formdata.querySelector("input").value;
+    const quantity = formdata.querySelector("input").value;
 
     if (quantity === "" || quantity < 0 || quantity > 99) throw new Error("Vous devez saisir un nombre entre 0 et 99");
   }

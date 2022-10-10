@@ -1,3 +1,4 @@
+// Imports
 import Modal from "./modal.js"; // modal class
 import CheckIsInvalid from "./checkinputs.js"; // check class
 
@@ -13,7 +14,7 @@ const formData = [ ...document.querySelectorAll(".formData") ];
 const inputs = document.querySelectorAll("input");
 
 
-// Classes
+// Instances
 const modal = new Modal(modalElement);
 const check = new CheckIsInvalid(formData);
 
@@ -50,7 +51,7 @@ function isInvalid() {
 /**
  * Validate the form
  * @param {Event} e
- * @returns 
+ * @returns Boolean
  */
 function validate(e) {
   e.preventDefault();
